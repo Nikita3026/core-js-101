@@ -24,7 +24,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (...arg) {
+  return function temp(...arg) {
     return f(g(...arg));
   };
 }
@@ -47,7 +47,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (number) {
+  return function temp(number) {
     return number ** exponent;
   };
 }
@@ -134,7 +134,7 @@ function retry(/* func, attempts */) {
  *
  */
 function logger(func, logFunc) {
-  return function (...arg) {
+  return function temp(...arg) {
     logFunc(`${func.name}(${JSON.stringify(...arg)}) starts`);
     logFunc(`${func.name}(${JSON.stringify(...arg)}) ends`);
     return func.apply(this, arg);
@@ -184,7 +184,7 @@ function partialUsingArguments(fn, ...args) {
  */
 function getIdGeneratorFunction(startFrom) {
   let number = startFrom;
-  return function () {
+  return function func() {
     const temp = number;
     number += 1;
     return temp;
