@@ -72,7 +72,7 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
   let sum = 0;
-  for (let i = n1; i <= n2; i++) {
+  for (let i = n1; i <= n2; i += 1) {
     sum += i;
   }
   return sum;
@@ -185,9 +185,9 @@ function isInsideCircle(circle, point) {
 function findFirstSingleChar(str) {
   let isItRepeat;
   const checkedLetters = [];
-  for (let i = 0; i < str.length - 1; i++) {
+  for (let i = 0; i < str.length - 1; i += 1) {
     isItRepeat = false;
-    for (let j = i + 1; j < str.length; j++) {
+    for (let j = i + 1; j < str.length; j += 1) {
       if (str[i] === str[j]) isItRepeat = true;
     }
     if (!isItRepeat) {
@@ -310,7 +310,7 @@ function isCreditCardNumber(ccn) {
     if (array[i] * 2 > 9) array[i] = array[i] * 2 - 9;
     else array[i] *= 2;
   }
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i += 1) {
     sum += +array[i];
   }
   if ((sum + (+controlNumber)) % 10 === 0) return true;
@@ -336,7 +336,7 @@ function getDigitalRoot(num) {
   let sum = 10;
   while (sum > 9) {
     sum = 0;
-    for (let i = 0; i < string.length; i++) {
+    for (let i = 0; i < string.length; i += 1) {
       sum += +string[i];
     }
     string = sum.toString();
@@ -368,7 +368,7 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
   const stack = [];
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     if (str[i] === '(' || str[i] === '{' || str[i] === '[' || str[i] === '<') stack.push(str[i]);
 
     if (str[i] === ')' || str[i] === '}' || str[i] === ']' || str[i] === '>') {
@@ -433,20 +433,21 @@ function isBracketsBalanced(str) {
 function toNaryString(num, n) {
   const result = [];
   let temp;
+  let number = num;
   let isTempInitialize = false;
-  while (num >= n) {
-    result.unshift(num % n);
-    if (num === n) {
-      temp = num;
+  while (number >= n) {
+    result.unshift(number % n);
+    if (number === n) {
+      temp = number;
       isTempInitialize = true;
     }
-    num = Math.floor(num / n);
+    number = Math.floor(number / n);
   }
   if (isTempInitialize) {
-    num = temp;
-    result.unshift(Math.ceil(num / n));
+    number = temp;
+    result.unshift(Math.ceil(number / n));
   } else {
-    result.unshift(num);
+    result.unshift(number);
   }
 
   return result.join('');
@@ -514,11 +515,11 @@ function getMatrixProduct(m1, m2) {
   const colsB = m2[0].length;
   const result = [];
   if (colsA !== rowsB) return false;
-  for (let i = 0; i < rowsA; i++) result[i] = [];
-  for (let k = 0; k < colsB; k++) {
-    for (let i = 0; i < rowsA; i++) {
+  for (let i = 0; i < rowsA; i += 1) result[i] = [];
+  for (let k = 0; k < colsB; k += 1) {
+    for (let i = 0; i < rowsA; i += 1) {
       let t = 0;
-      for (let j = 0; j < rowsB; j++) t += m1[i][j] * m2[j][k];
+      for (let j = 0; j < rowsB; j += 1) t += m1[i][j] * m2[j][k];
       result[i][k] = t;
     }
   }

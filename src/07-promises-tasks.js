@@ -54,7 +54,7 @@ function willYouMarryMe(isPositiveAnswer) {
  */
 function processAllPromises(array) {
   const result = [];
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i += 1) {
     array[i].then((item) => {
       result.push(item);
     });

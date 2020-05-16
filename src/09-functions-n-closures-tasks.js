@@ -157,9 +157,9 @@ function logger(func, logFunc) {
  */
 function partialUsingArguments(fn, ...args) {
   this.result = [];
-  for (let i = 0; i < args.length; i++) this.result.push(args[i]);
+  for (let i = 0; i < args.length; i += 1) this.result.push(args[i]);
   return (...args1) => {
-    for (let i = 0; i < args1.length; i++) this.result.push(args1[i]);
+    for (let i = 0; i < args1.length; i += 1) this.result.push(args1[i]);
     return fn(...this.result);
   };
 }
@@ -185,7 +185,9 @@ function partialUsingArguments(fn, ...args) {
 function getIdGeneratorFunction(startFrom) {
   let number = startFrom;
   return function () {
-    return number++;
+    const temp = number;
+    number += 1;
+    return temp;
   };
 }
 

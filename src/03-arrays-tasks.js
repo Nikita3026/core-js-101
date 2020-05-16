@@ -375,7 +375,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
   let counter = 0;
   arr.map((item) => {
-    if (item > 0 && typeof (item) === 'number') counter++;
+    if (item > 0 && typeof (item) === 'number') counter += 1;
     return counter;
   });
   return counter;
@@ -458,7 +458,7 @@ function getFalsyValuesCount(arr) {
        || item === ''
         || item === 0
          || Number.isNaN(item) === true
-         || item === false) counter++;
+         || item === false) counter += 1;
     return counter;
   });
   return counter;
@@ -557,17 +557,8 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(n) {
-  const result = new Array(n);
-  let counter = 0;
-  result.fill([]);
-  result.map((item) => {
-    item.fill(0, 0, n);
-    item[counter] = 1;
-    counter++;
-    return item;
-  });
-  return result;
+function getIdentityMatrix(/* n */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -591,7 +582,7 @@ function getIntervalArray(start, end) {
   result.fill(0);
   result.map(() => {
     res.push(start + counter);
-    counter++;
+    counter += 1;
     return start;
   });
   return res;
