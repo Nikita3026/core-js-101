@@ -19,8 +19,9 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  const item = new Date(value);
+  return item;
 }
 
 /**
@@ -34,8 +35,9 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  const item = new Date(value);
+  return item;
 }
 
 
@@ -53,8 +55,13 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  if (date.getFullYear() % 4 === 0) {
+    if (date.getFullYear() % 100 === 0) {
+      if (date.getFullYear() % 400 === 0) return true;
+    } else return true;
+  }
+  return false;
 }
 
 
@@ -73,10 +80,24 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
-}
+function timeSpanToString(startDate, endDate) {
+  function ziro(item) {
+    if (item >= 0 && item < 10) return `0${item}`;
+    return item;
+  }
+  function zirosss(item) {
+    if (item >= 0 && item < 10) return `00${item}`;
+    if (item >= 10 && item < 100) return `0${item}`;
+    return item;
+  }
+  const hh = endDate.getHours() - startDate.getHours();
+  const mm = endDate.getMinutes() - startDate.getMinutes();
+  const ss = endDate.getSeconds() - startDate.getSeconds();
+  const sss = endDate.getMilliseconds() - startDate.getMilliseconds();
 
+  const str = `${ziro(hh)}:${ziro(mm)}:${ziro(ss)}.${zirosss(sss)}`;
+  return str;
+}
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock
@@ -94,8 +115,16 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const mm = date.getUTCMinutes();
+  const hh = date.getUTCHours();
+  let res = 0.5 * (60 * hh - 11 * mm);
+  if (res > 180) res = 360 - res;
+  if (res < -180) res += 360;
+  res *= Math.PI;
+  res /= 180;
+  if (res < 0) return -res;
+  return res;
 }
 
 

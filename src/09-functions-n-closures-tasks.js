@@ -23,8 +23,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return function (...arg) {
+    return f(g(...arg));
+  };
 }
 
 
@@ -44,14 +46,16 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return function (number) {
+    return number ** exponent;
+  };
 }
 
 
 /**
  * Returns the polynom function of one argument based on specified coefficients.
- * See: https://en.wikipedia.org/wiki/Polynomial#Definition
+ * See: https://en.wikipedia.org/wiki/Pol ynomial#Definition
  *
  * @params {integer}
  * @return {Function}
@@ -129,8 +133,12 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return function (...arg) {
+    logFunc(`${func.name}(${JSON.stringify(...arg)}) starts`);
+    logFunc(`${func.name}(${JSON.stringify(...arg)}) ends`);
+    return func.apply(this, arg);
+  };
 }
 
 
@@ -147,8 +155,13 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args) {
+  this.result = [];
+  for (let i = 0; i < args.length; i++) this.result.push(args[i]);
+  return (...args1) => {
+    for (let i = 0; i < args1.length; i++) this.result.push(args1[i]);
+    return fn(...this.result);
+  };
 }
 
 
@@ -169,8 +182,11 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let number = startFrom;
+  return function () {
+    return number++;
+  };
 }
 
 
